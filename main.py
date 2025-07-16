@@ -1,10 +1,12 @@
+import os
 from fastapi import FastAPI
 from fastapi.responses import HTMLResponse, JSONResponse
 from pydantic import BaseModel
 from user_jwt import *
 from BD.database import Base, motor
 from Routers.movie import *
-from Routers.users import *
+from Routers.users import login_user
+import uvicorn
 
 
 Base.metadata.create_all(bind=motor)
@@ -33,6 +35,8 @@ app = FastAPI(
 )
 
 app.include_router(routerMovie)
+app.include_router(login_user)
 
-
-
+if __name__ == '__main__':
+    port = int(os.environ.get("PORT", 8000))
+    uvicorn.run("main:app", host="0.0.0.0", port=port)

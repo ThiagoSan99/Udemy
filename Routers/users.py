@@ -1,9 +1,9 @@
-from fastapi import FastAPI
+from fastapi import APIRouter, FastAPI
 from fastapi.responses import HTMLResponse, JSONResponse
 from pydantic import BaseModel
 from user_jwt import *
 
-login_user = FastAPI()
+login_user = APIRouter()
 
 ##Usuario
 class User(BaseModel):
